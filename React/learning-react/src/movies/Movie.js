@@ -2,13 +2,15 @@ import React from "react";
 import PropTypes from 'prop-types'
 
 export function Movie({movie}){
+   
+   
     return (
-        <li>{movie.name}</li>
+        <li>{movie.title}</li>
     )
 }
 
 Movie.prototypes = {
     movie: PropTypes.shape({
-        name: PropTypes.string.isRequired
+        title: PropTypes.string.isRequired
     }).isRequired
 }
