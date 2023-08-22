@@ -13,11 +13,12 @@ import { Filter } from '../Filter'
 //         name: "Man of Iron"
 //     },
 // ]
-const api_url = "https://api.themoviedb.org/3/discover/movie?api_key=0331ed2d215397f9db6be74081ea441e&language=en-US&page=1&sort_by=popularity.desc%27%20"
-
+const api_url = "https://api.themoviedb.org/3/discover/movie?api_key=0331ed2d215397f9db6be74081ea441e&include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc"
+const config_url = "https://api.themoviedb.org/3/configuration?api_key=0331ed2d215397f9db6be74081ea441e&language=en-US&page=1&sort_by=popularity.desc%27%20"
 export function MoviesList(){
 const [ filter, setFilter] = useState("")
 const [movies,setMovies] = useState([])
+const [config,setConfig] = useState({})
 // const varName = useRef(initial value)
 // const ulRef = useRef(null);
 // const ref = useRef(null);
@@ -34,7 +35,20 @@ setMovies(movies.results)
     }
 }
 
+const getConfig = async () => {
+
+    try{
+const res = await fetch(config_url)
+const config = await res.json()
+setConfig(config)
+
+    }catch (e){
+        console.error(e)
+    }
+}
+
 useEffect(() => {
+    getConfig();
     getMovies();
 }, [] )
 
@@ -48,11 +62,11 @@ useEffect(() => {
         <button/>
     </form> */}
         <Filter filter={filter} setFilter={setFilter}/>
-    <ul>
+    <ul className='movies-list'>
         {movies.filter((movie) => 
           movie.title.toLowerCase().includes(filter.toLowerCase())
         ).map((movie) => (
-                <Movie key={movie.id} movie={movie}/>
+                <Movie key={movie.id} config={config} movie={movie}/>
             )
         )}
     </ul>
