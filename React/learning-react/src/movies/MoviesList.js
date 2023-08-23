@@ -13,8 +13,8 @@ import { Filter } from '../Filter'
 //         name: "Man of Iron"
 //     },
 // ]
-const api_url = "https://api.themoviedb.org/3/discover/movie?api_key=0331ed2d215397f9db6be74081ea441e&include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc"
-const config_url = "https://api.themoviedb.org/3/configuration?api_key=0331ed2d215397f9db6be74081ea441e&language=en-US&page=1&sort_by=popularity.desc%27%20"
+const api_url = "https://api.themoviedb.org/3/discover/movie?&include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&api_key="
+const config_url = "https://api.themoviedb.org/3/configuration?&language=en-US&page=1&sort_by=popularity.desc%27%20&api_key="
 export function MoviesList(){
 const [ filter, setFilter] = useState("")
 const [movies,setMovies] = useState([])
@@ -26,7 +26,7 @@ const [config,setConfig] = useState({})
 const getMovies = async () => {
 
     try{
-const res = await fetch(api_url)
+const res = await fetch(api_url + process.env.REACT_APP_MOVIE_API)
 const movies = await res.json()
 setMovies(movies.results)
 
@@ -38,7 +38,7 @@ setMovies(movies.results)
 const getConfig = async () => {
 
     try{
-const res = await fetch(config_url)
+const res = await fetch(config_url + process.env.REACT_APP_MOVIE_API)
 const config = await res.json()
 setConfig(config)
 

@@ -1,17 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
-import { PropTypes } from 'react';
-import { Counter } from './Counter';
-import { Accordion } from './Accordion';
-import { Input } from './Input';
 import { MoviesList } from './movies/MoviesList';
+import React from 'react';
+import { MovieDetails } from './movies/MovieDetails';
+import{
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  
+
+} from "react-router-dom"
 
 function App() {
   return (
-    <div className="App">
-      <MoviesList/>
-      
-    </div>
+    <Router>
+      <div className="App">
+       <Routes>
+           <Route path='/movie/:id' element={<MovieDetails/>}>
+            </Route>
+            <Route path='/' element={<MoviesList/>}>
+              
+            </Route>
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
